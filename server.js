@@ -4,9 +4,10 @@ const cors = require("cors");
 const { conectarDB } = require("./config/database");
 const bcrypt = require("bcryptjs");
 
-const authRoutes     = require("./routes/authRoutes");
-const usuariosRoutes = require("./routes/usuariosRoutes");
+const authRoutes      = require("./routes/authRoutes");
+const usuariosRoutes  = require("./routes/usuariosRoutes");
 const productosRoutes = require("./routes/productosRoutes");
+const contactoRoutes  = require("./routes/contactoRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -89,6 +90,7 @@ app.get("/", (req, res) => {
 app.use("/api/auth",      authRoutes);
 app.use("/api/usuarios",  usuariosRoutes);
 app.use("/api/productos", productosRoutes);
+app.use("/api/contacto",  contactoRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ exito: false, mensaje: "Ruta no encontrada." });
