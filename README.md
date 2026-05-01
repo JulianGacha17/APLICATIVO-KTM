@@ -1,113 +1,133 @@
-# APLICATIVO-KTM
+# 🏍️ APLICATIVO WEB KTM 
 
-Aplicación web Full Stack desarrollada para la gestión integral de una tienda de motocicletas KTM en Colombia.
-El sistema permite administrar usuarios, productos, pedidos y solicitudes de contacto mediante una API REST segura, implementando autenticación basada en tokens.
+Aplicación web **Full Stack** orientada a la gestión integral de una tienda de motocicletas KTM en Colombia.  
+El sistema permite administrar usuarios, productos, pedidos y solicitudes de contacto mediante una **API REST segura**, implementando autenticación con **JWT**.
 
-🎯 Objetivo del Proyecto
+---
 
-Diseñar e implementar una solución web que facilite la administración de una tienda KTM, optimizando procesos como:
+## 🎯 Objetivo del Proyecto
 
-Gestión de clientes y administradores
-Administración de catálogo de motocicletas y servicios
-Control de pedidos
-Recepción y seguimiento de mensajes de contacto
-Acceso seguro mediante autenticación
-🛠️ Tecnologías Utilizadas
-Capa	Tecnología
-Backend	Node.js + Express
-Base de Datos	MongoDB Atlas
-Autenticación	JWT + bcryptjs
-Frontend	Express + Handlebars
-Control de Versiones	Git + GitHub
-Testing API	Thunder Client (VS Code)
-🧩 Arquitectura del Sistema
+Diseñar e implementar una solución web que permita:
 
-El proyecto está dividido en dos módulos principales:
+- Gestión de clientes y administradores  
+- Administración del catálogo de motocicletas y servicios  
+- Control de pedidos  
+- Recepción de mensajes de contacto  
+- Acceso seguro mediante autenticación  
 
-🔹 Backend (API REST)
+---
 
-Encargado de la lógica de negocio, seguridad y acceso a datos.
+## 🛠️ Tecnologías Utilizadas
 
-🔹 Frontend
+| Capa | Tecnología |
+|------|-----------|
+| Backend | Node.js + Express |
+| Base de Datos | MongoDB Atlas |
+| Autenticación | JWT + bcryptjs |
+| Frontend | Express + Handlebars |
+| Control de Versiones | Git + GitHub |
+| Testing | Thunder Client |
 
-Encargado de la interfaz de usuario y consumo de la API.
+---
 
-📁 Estructura del Proyecto
+## 🧩 Arquitectura del Sistema
+
+El proyecto se divide en:
+
+### 🔹 Backend (API REST)
+Encargado de la lógica de negocio y seguridad.
+
+### 🔹 Frontend
+Encargado de la interfaz y consumo de la API.
+
+---
+
+## 📁 Estructura del Proyecto
+
+```bash
 APLICATIVO-KTM/
 │
-├── KTM-API/                # Backend - API REST
+├── KTM-API/
 │   ├── server.js
-│   ├── config/             # Configuración de MongoDB
-│   ├── models/             # Modelos de datos
-│   ├── controllers/        # Lógica de negocio
-│   ├── routes/             # Definición de endpoints
-│   ├── middleware/         # Seguridad (JWT)
-│   └── database/           # Datos iniciales (seed)
+│   ├── config/
+│   ├── models/
+│   ├── controllers/
+│   ├── routes/
+│   ├── middleware/
+│   └── database/
 │
-└── Frontend_KTM/           # Aplicación Web
+└── Frontend_KTM/
     ├── server.js
-    ├── routes/             # Rutas del sitio
-    ├── views/              # Plantillas Handlebars
-    │   └── admin/          # Panel administrativo
-    ├── services/           # Consumo de la API
-    └── public/             # Archivos estáticos
-    
-🔌 API REST – Endpoints Principales
-🔐 Autenticación
-Registro de usuarios
-Inicio de sesión con generación de token JWT
-Consulta de perfil autenticado
-👤 Usuarios
-CRUD completo de usuarios
-Gestión de roles (cliente / administrador)
-🏍️ Productos
-Administración del catálogo de motocicletas
-Creación, edición, consulta y eliminación
-📩 Contacto
-Envío de mensajes desde el sitio web
-Gestión de mensajes en el panel administrativo
-🗄️ Modelo de Base de Datos
+    ├── routes/
+    ├── views/
+    │   └── admin/
+    ├── services/
+    └── public/
+```
+## 🔌 API REST
 
-El sistema utiliza MongoDB Atlas con las siguientes colecciones:
+### 🔐 Autenticación
+- `POST /api/auth/registro`
+- `POST /api/auth/login`
+- `GET /api/auth/perfil`
 
-usuarios → Información de clientes y administradores
-productos → Motocicletas y servicios KTM
-categorias → Clasificación de productos
-pedidos → Registro de compras
-resenas → Valoraciones de productos
-contactos → Mensajes enviados por usuarios
-⚙️ Instalación y Ejecución
-1️⃣ Clonar el repositorio
+### 👤 Usuarios
+- `GET /api/usuarios`
+- `GET /api/usuarios/:id`
+- `POST /api/usuarios`
+- `PUT /api/usuarios/:id`
+- `DELETE /api/usuarios/:id`
+
+### 🏍️ Productos
+- `GET /api/productos`
+- `GET /api/productos/:id`
+- `POST /api/productos`
+- `PUT /api/productos/:id`
+- `DELETE /api/productos/:id`
+
+### 📩 Contacto
+- `POST /api/contacto`
+- `GET /api/contacto`
+- `PUT /api/contacto/:id/leido`
+- `DELETE /api/contacto/:id`
+
+---
+
+## 🗄️ Base de Datos
+
+**Colecciones principales:**
+
+- `usuarios`
+- `productos`
+- `categorias`
+- `pedidos`
+- `resenas`
+- `contactos`
+
+---
+
+## ⚙️ Instalación
+
+### 1️⃣ Clonar repositorio
+```bash
 git clone https://github.com/JulianGacha17/APLICATIVO-KTM.git
-2️⃣ Ejecutar Backend (API)
+```
+### Backend
+```bash
 cd KTM-API
 npm install
 node server.js
+```
 
-📍 Disponible en: http://localhost:8080
-
-3️⃣ Ejecutar Frontend
+### Fronted
+```bash
 cd Frontend_KTM
 npm install
 node server.js
+```
 
-📍 Disponible en: http://localhost:3000
-
-🔐 Credenciales de Acceso (Pruebas)
+### Credenciales de prueba
+```bash
 Email: admin@ktmcolombia.com
-Contraseña: Admin123!
-🌐 Rutas del Sistema
-Ruta	Descripción
-/	Página principal
-/catalogo	Catálogo de motocicletas
-/servicios	Servicios KTM
-/contacto	Formulario de contacto
-/login	Inicio de sesión
-/admin	Panel administrativo
-✨ Características Destacadas
-✔ Arquitectura modular (Backend + Frontend)
-✔ Autenticación segura con JWT
-✔ Encriptación de contraseñas
-✔ API REST estructurada
-✔ Separación de responsabilidades (MVC)
-✔ Panel administrativo funcional
+Password: Admin123!
+```
