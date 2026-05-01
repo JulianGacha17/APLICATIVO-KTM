@@ -91,7 +91,7 @@ cd Frontend_KTM
 npm install
 node server.js
 
-📍 Disponible en: http://localhost:3001
+📍 Disponible en: http://localhost:3000
 
 🔐 Credenciales de Acceso (Pruebas)
 Email: admin@ktmcolombia.com
