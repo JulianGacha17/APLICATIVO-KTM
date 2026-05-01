@@ -1,0 +1,240 @@
+{
+  "info": {
+    "name": "KTM Colombia API – GA4-220501096-AA1-EV01",
+    "description": "Colección completa de pruebas para la API REST del proyecto KTM Colombia. Incluye CRUD de usuarios y productos, autenticación con JWT.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "base_url", "value": "http://localhost:3000" },
+    { "key": "token", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "🔐 Autenticación",
+      "item": [
+        {
+          "name": "Registrar usuario",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/auth/registro",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"Carlos Rodríguez\",\n  \"email\": \"carlos@email.com\",\n  \"password\": \"pass1234\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login (admin)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const res = pm.response.json();",
+                  "if (res.exito && res.datos.token) {",
+                  "  pm.collectionVariables.set('token', res.datos.token);",
+                  "  console.log('Token guardado:', res.datos.token);",
+                  "}"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/auth/login",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@ktmcolombia.com\",\n  \"password\": \"Admin123!\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Ver perfil",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/auth/perfil",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        }
+      ]
+    },
+    {
+      "name": "👥 Usuarios (CRUD)",
+      "item": [
+        {
+          "name": "GET – Listar usuarios",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/usuarios",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        },
+        {
+          "name": "GET – Obtener usuario por ID",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/usuarios/1",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        },
+        {
+          "name": "POST – Crear usuario",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/usuarios",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"María López\",\n  \"email\": \"maria@ktm.com\",\n  \"password\": \"secure456\",\n  \"rol\": \"cliente\"\n}"
+            }
+          }
+        },
+        {
+          "name": "PUT – Actualizar usuario",
+          "request": {
+            "method": "PUT",
+            "url": "{{base_url}}/api/usuarios/2",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"María López Actualizada\",\n  \"activo\": true\n}"
+            }
+          }
+        },
+        {
+          "name": "DELETE – Eliminar usuario",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/api/usuarios/2",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        }
+      ]
+    },
+    {
+      "name": "🏍️ Productos (CRUD)",
+      "item": [
+        {
+          "name": "GET – Listar todos los productos",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/productos"
+          }
+        },
+        {
+          "name": "GET – Filtrar por categoría (Naked)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/productos?categoria=Naked",
+              "query": [{ "key": "categoria", "value": "Naked" }]
+            }
+          }
+        },
+        {
+          "name": "GET – Buscar por nombre",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{base_url}}/api/productos?busqueda=duke",
+              "query": [{ "key": "busqueda", "value": "duke" }]
+            }
+          }
+        },
+        {
+          "name": "GET – Obtener producto por ID",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/productos/1"
+          }
+        },
+        {
+          "name": "POST – Crear producto",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/productos",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nombre\": \"KTM 500 EXC-F\",\n  \"descripcion\": \"Enduro de alta competencia para terrenos difíciles\",\n  \"categoria\": \"Adventure\",\n  \"precio\": 38500000,\n  \"potencia\": \"63 HP\",\n  \"stock\": 3\n}"
+            }
+          }
+        },
+        {
+          "name": "PUT – Actualizar producto",
+          "request": {
+            "method": "PUT",
+            "url": "{{base_url}}/api/productos/1",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"precio\": 16500000,\n  \"stock\": 8\n}"
+            }
+          }
+        },
+        {
+          "name": "DELETE – Eliminar producto",
+          "request": {
+            "method": "DELETE",
+            "url": "{{base_url}}/api/productos/11",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }]
+          }
+        }
+      ]
+    },
+    {
+      "name": "⚠️ Pruebas de error",
+      "item": [
+        {
+          "name": "Login con credenciales incorrectas",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/auth/login",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"noexiste@email.com\",\n  \"password\": \"incorrecta\"\n}" }
+          }
+        },
+        {
+          "name": "Acceder sin token",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/usuarios"
+          }
+        },
+        {
+          "name": "Crear producto con datos inválidos",
+          "request": {
+            "method": "POST",
+            "url": "{{base_url}}/api/productos",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"nombre\": \"Sin categoría\",\n  \"precio\": -100\n}" }
+          }
+        },
+        {
+          "name": "Obtener producto inexistente",
+          "request": {
+            "method": "GET",
+            "url": "{{base_url}}/api/productos/9999"
+          }
+        }
+      ]
+    }
+  ]
+}
